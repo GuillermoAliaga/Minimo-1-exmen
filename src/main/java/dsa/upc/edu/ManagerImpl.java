@@ -23,6 +23,7 @@ public class ManagerImpl implements Manager {
         this.Prestamos = new ArrayList<>();
         this.montoneslibros = new LinkedList<>();
         this.montoneslibros.add(new Stack<>());
+        this.librosCatalogados = new ArrayList<>();
     }
     public static Manager getInstance() {
         if (instance==null) instance = new ManagerImpl();
@@ -62,16 +63,23 @@ public class ManagerImpl implements Manager {
     public void catalogarlibro() {
         if(montoneslibros.isEmpty()){
             logger.info ("No hay libros que catalogar");
+            return;
         }
         Stack<Libro> montonactual = montoneslibros.peek();
+        if (montonactual.isEmpty()) {
+            logger.info("El montón actual está vacío");
+            montoneslibros.poll(); // lo quitas de la cola
+            return;
+        }
         Libro libro = montonactual.pop();
+
         logger.info ("Libro"+ libro.getTitulo() + "con ISBN" + libro.getISBN());
         if (montonactual.isEmpty()){
             montoneslibros.poll();
             logger.info ("El monton actual esta vacio");
         }
         boolean mismoisbn = false;
-        for(Libro libro1 : this.libros)
+        for(Libro libro1 : this.librosCatalogados)
         {
             if(libro1.getISBN().equals(libro.getISBN())){
                 libro1.setCantidad(libro1.getCantidad() + 1);
@@ -87,6 +95,10 @@ public class ManagerImpl implements Manager {
             logger.info("Libro" + libro.getTitulo() + "ha sido catalogado");
         }
     }
+    public List<Libro> getLibrosCatalogados() {
+        return this.librosCatalogados;
+    }
+
 
     @Override
     public Prestamo libroprestado(String idprestamo, String idlector, String idlibro, Date fechaprestamo, Date fechadevolucion) {
@@ -111,10 +123,12 @@ public class ManagerImpl implements Manager {
         if (lector == null || libro == null)
         {
             logger.info("No encontrado");
+            return null;
         }
         if(libro.getCantidad() <= 0)
         {
             logger.info ("No hay suficientes libros titutlados:" +libro.getTitulo() + "en este momento");
+            return null;
         }
         Prestamo prestamo = new Prestamo(idprestamo, lector.getId(), libro.getId(),fechaprestamo, fechadevolucion);
         prestamo.setDisponible(true);

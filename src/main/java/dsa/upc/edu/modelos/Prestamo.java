@@ -10,7 +10,7 @@ public class Prestamo {
     Date fechadevolucion;
     boolean estado;
 
-    public Prestamo(String idprestamo,String idlector,String idlibro,Date fechaprestamo,Date fechadevolucion,String estado)
+    public Prestamo(String idprestamo,String idlector,String idlibro,Date fechaprestamo,Date fechadevolucion)
     {
         this.idprestamo = idprestamo;
         this.idlector = idlector;
@@ -19,7 +19,11 @@ public class Prestamo {
         this.fechadevolucion = fechadevolucion;
         this.estado = false;
     }
-    public Prestamo (String idprestamo, String id, String libroId, Date fechaprestamo, Date fechadevolucion){}
+    public Prestamo(String idprestamo, String idlector, String idlibro, Date fechaprestamo, Date fechadevolucion, boolean estado) {
+        this(idprestamo, idlector, idlibro, fechaprestamo, fechadevolucion);
+        this.estado = estado;
+    }
+    public Prestamo(){}
 
     public String getIdprestamo() {
         return idprestamo;

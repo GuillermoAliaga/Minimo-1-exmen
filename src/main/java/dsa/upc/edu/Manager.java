@@ -12,4 +12,5 @@ public interface Manager {
     void catalogarlibro ();
     Prestamo libroprestado(String idprestamo,String idlector,String isbn,Date fechaprestamo,Date fechadevolucion);
     List<Prestamo> consultarlibroslector(String idlector);
+    List<Libro> getLibrosCatalogados();
 }

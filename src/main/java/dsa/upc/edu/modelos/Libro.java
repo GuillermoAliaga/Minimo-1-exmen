@@ -21,14 +21,14 @@ int cantidad;
 
     public Libro(String id, String ISBN, String titulo, String editorial, int publicacion, int numeroedicion, String autor, String tematica, int cantidad) {
         this.id = id;
-        this.ISBN = titulo;
+        this.ISBN = ISBN;
         this.titulo = titulo;
         this.editorial = editorial;
         this.publicacion = publicacion;
         this.numeroedicion = numeroedicion;
         this.autor = autor;
         this.tematica = tematica;
-        this.cantidad = 1;
+        this.cantidad = cantidad;
     }
     public Libro (){}
 

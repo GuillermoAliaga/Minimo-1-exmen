@@ -1,5 +1,7 @@
 package dsa.upc.edu.modelos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Lector {
     String id;
     String nombre;
     String apellidos;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     Date fechanacimiento;
     String lugarnacimiento;
     String DNI;
